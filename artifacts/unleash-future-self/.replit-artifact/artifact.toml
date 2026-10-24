@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Unleash Your Future Self"
+description = "A home for the Unleash Your Future Self guided workshop, with separate sign-in experiences for instructors and attendees."
+version = "1.0.0"
+id = "artifacts/unleash-future-self"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23226
+
+[services.development]
+run = "pnpm --filter @workspace/unleash-future-self run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/unleash-future-self", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/unleash-future-self/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23226"
+BASE_PATH = "/"
