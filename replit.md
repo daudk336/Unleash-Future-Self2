@@ -32,6 +32,8 @@ A guided future-self workshop website with separate attendee and instructor acco
 - Replit-managed Clerk handles browser sign-in with session cookies; the API server also hosts Clerk's production proxy.
 - Roles live in Clerk `publicMetadata.role`: `attendee` or `instructor`.
 - Attendees can create accounts. The authenticated API only grants attendee access; it never promotes an account to instructor.
+- PostgreSQL stores app data, not credentials: attendee profiles are keyed by Clerk user ID, with workshops, registrations, and attendance modeled separately.
+- The attendee-access endpoint creates a minimal attendee profile row without copying email or password data from Clerk.
 - Instructor accounts are invite-only and must be assigned the instructor role by an administrator before sign-in.
 
 ## Product
@@ -39,7 +41,7 @@ A guided future-self workshop website with separate attendee and instructor acco
 - Public workshop and instructor-program pages based on the existing Unleash Your Future Self site.
 - Attendee login and self-registration, plus an attendee portal.
 - Instructor login and a protected instructor portal; public instructor self-registration is disabled.
-- Workshop booking and instructor management workflows are not part of this first version.
+- PostgreSQL schemas are ready for profiles, workshops, registrations, and attendance; booking and workshop-management screens/APIs are not implemented yet.
 
 ## User preferences
 

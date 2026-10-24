@@ -1,5 +1,6 @@
 import { clerkClient, getAuth } from "@clerk/express";
 import { EnsureAttendeeAccessResponse } from "@workspace/api-zod";
+import { attendeeProfilesTable, db } from "@workspace/db";
 import { Router, type IRouter } from "express";
 
 const router: IRouter = Router();
@@ -28,6 +29,13 @@ router.post("/me/attendee-access", async (req, res): Promise<void> => {
       role = "attendee";
     } else {
       role = "unassigned";
+    }
+
+    if (role === "attendee") {
+      await db
+        .insert(attendeeProfilesTable)
+        .values({ clerkUserId: userId })
+        .onConflictDoNothing();
     }
 
     res.json(
