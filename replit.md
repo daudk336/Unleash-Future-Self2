@@ -1,10 +1,11 @@
-# [Project name]
+# Unleash Your Future Self
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A guided future-self workshop website with separate attendee and instructor account access.
 
 ## Run & Operate
 
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/unleash-future-self run dev` — run the web app
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -22,23 +23,31 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/unleash-future-self` — public site, account entry points, and role-specific portals
+- `artifacts/api-server` — shared API, Clerk middleware, and account-role endpoint
+- `lib/api-spec/openapi.yaml` — API contract source of truth
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Replit-managed Clerk handles browser sign-in with session cookies; the API server also hosts Clerk's production proxy.
+- Roles live in Clerk `publicMetadata.role`: `attendee` or `instructor`.
+- Attendees can create accounts. The authenticated API only grants attendee access; it never promotes an account to instructor.
+- Instructor accounts are invite-only and must be assigned the instructor role by an administrator before sign-in.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Public workshop and instructor-program pages based on the existing Unleash Your Future Self site.
+- Attendee login and self-registration, plus an attendee portal.
+- Instructor login and a protected instructor portal; public instructor self-registration is disabled.
+- Workshop booking and instructor management workflows are not part of this first version.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- The user specified that instructors are invite-only and attendees can sign up themselves.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- When changing the Clerk React package or React runtime, keep `react` and `react-dom` on the same supported version; see `.agents/memory/clerk-react-runtime.md`.
 
 ## Pointers
 

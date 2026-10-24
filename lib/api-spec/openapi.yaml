@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: account
+    description: Authenticated account access
 paths:
   /healthz:
     get:
@@ -24,6 +26,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /me/attendee-access:
+    post:
+      operationId: ensureAttendeeAccess
+      tags: [account]
+      summary: Ensure a signed-in user has attendee access
+      description: Assigns the attendee role to an unassigned authenticated user. It never changes an instructor role.
+      responses:
+        "200":
+          description: The signed-in account's current role
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountRoleResponse"
+        "401":
+          description: Authentication is required
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +54,25 @@ components:
           type: string
       required:
         - status
+    AccountRoleResponse:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [attendee, instructor, unassigned]
+        canAccessAttendeePortal:
+          type: boolean
+        canAccessInstructorPortal:
+          type: boolean
+      required:
+        - role
+        - canAccessAttendeePortal
+        - canAccessInstructorPortal
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
 

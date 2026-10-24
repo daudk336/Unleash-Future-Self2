@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 48" fill="none">
+  <rect width="48" height="48" rx="24" fill="#11283B"/>
+  <path d="M15 15v12.4c0 6.2 3.7 10.1 9.4 10.1 5.7 0 9.4-3.9 9.4-10.1V15" stroke="#55C9B5" stroke-width="2.6" stroke-linecap="round"/>
+  <path d="M24.4 37.4c3.8 0 7-1.5 9.4-4.2" stroke="#E6BD69" stroke-width="2.6" stroke-linecap="round"/>
+  <text x="58" y="20" fill="#11283B" font-family="DM Sans, Arial, sans-serif" font-size="9" font-weight="700" letter-spacing="1.2">UNLEASH YOUR</text>
+  <text x="58" y="34" fill="#11283B" font-family="DM Sans, Arial, sans-serif" font-size="12" font-weight="700" letter-spacing=".1">FUTURE SELF</text>
+</svg>
